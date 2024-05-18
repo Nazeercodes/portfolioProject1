@@ -13,3 +13,4 @@
 - git branch -M main
 - git remote add origin (the repository link)
 - git push -u origin main
+- keep pushing the changes
