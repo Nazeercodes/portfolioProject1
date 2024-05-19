@@ -4,7 +4,7 @@
 ## setting up the project
 - install node.js
 - making two folders one for backend another one for frontend
-- npm intit in the backend folder
+- npm init in the backend folder
 ### making a git repository
 - make a git repository in github then follow the below steps in the terminal of backend
 - git init
@@ -33,3 +33,27 @@ in index.js
 - to use nodemon for index.js so that every time it gets restart
 we will make a script
 "dev": "nodemon src/index.js" in place of test script
+
+### adding files and folders in src folder
+- mkdir controllers db utils models routes middlewares
+
+### adding prettier
+this will help to maintain consistent code writing if working in a 
+team, like using the same spacing, commas etc by different team members
+- npm i -D prettier
+- adding .prettierrc in src folder
+    {
+    "singleQuote": false,
+    "bracketSpacing": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "semi": true
+    }
+- adding .prettierignore in src folder
+    /.vscode
+    /node_modules
+    /.dist
+    *.env
+    .env
+    .env.*
+    
