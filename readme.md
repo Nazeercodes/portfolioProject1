@@ -56,4 +56,41 @@ team, like using the same spacing, commas etc by different team members
     *.env
     .env
     .env.*
-    
+## connecting to the db
+- go to mongodb and create a project
+- we usually use the tabs of network access and db access to change anything
+- in production level we never allow the ip address to be allowed from everywhere
+- but for this project we will allow from everywhere by putting 0.0.0.0/0 from network access
+- adding an user from db access and giving access to read and write (xe0sFbemeTluNJO0)
+- go to database tab connect and copy the string url 
+- connecting through compass
+- adding the MONGODB_URI to the env variable also give a port
+- remove the last slash from the uri
+- go to constants in src to give a name of db so that we can connect(we are putting 
+in the constants file because every time we change something it will change in entire db)
+- export const DB_NAME= "backendapp"
+- we can have two approach to connect the db, either making a db folder separately and then 
+importing it into the index.js file or directly writing in the index.js file
+- installing three packages npm i mongoose dotenv express
+- after installing always check the package.json file if they are installed or not
+### connecting to the db through index.js file
+import mongoose from "mongoose"
+import {DB_NAME} from "./constants";
+import express from "express"
+const app =express()
+(async()=>{
+    try{
+        await mongoose.connect(`${process.env.MONGO_URI}/${backendapp}`)
+        app.on("error",(error)=>{
+            console.log("Error", error);
+            })
+    }
+    app.listen(process.env.PORT,()=>{
+        console.log(`App is listening on port${process.env.PORT}`);
+    })
+    catch(error){
+        console.log("Error: ", error);
+        throw err;
+    }
+})()
+### connecting to the db through the db folder
