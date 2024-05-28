@@ -74,13 +74,14 @@ importing it into the index.js file or directly writing in the index.js file
 - installing three packages npm i mongoose dotenv express
 - after installing always check the package.json file if they are installed or not
 ### connecting to the db through index.js file
+
 import mongoose from "mongoose"
 import {DB_NAME} from "./constants";
 import express from "express"
 const app =express()
 (async()=>{
     try{
-        await mongoose.connect(`${process.env.MONGO_URI}/${backendapp}`)
+        await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
         app.on("error",(error)=>{
             console.log("Error", error);
             })
@@ -93,4 +94,36 @@ const app =express()
         throw err;
     }
 })()
-### connecting to the db through the db folder
+
+### connecting to the db through the db folder(we will use this method)
+- make an index.js file in db directory
+import mongoose from "mongoose";
+import {DB_NAME} from "../constants.js";
+
+const connectDB= async()=>{
+    try{
+        const connectionInstance= await mongoose.connect
+        (`${process.env.MONGODB_URI}/${DB_NAME}`)
+        console.log(`\n MongoDb connected!! DB host:${connectionInstance.connection.host}`);
+    }
+    catch{
+        console.log("MongoDb connection error", error);
+        process.exit(1)
+    }
+}
+
+export default connectDB
+- import connectDB in src index.js file
+import dotenv from "dotenv"
+import connectDB from "./db.index.js";
+dotenv.config({
+    path:'./env'
+})
+connectDB()
+
+- to use the import syntax for dotenv we will use some experimental features
+in package.json file so that code have the consistency, but this syntax will come in future
+- in package.json file, in the script ->
+"dev" : "nodemon -r dotenv/config --experimental-json-modules src/index.js"
+done!
+-make sure while writing the password in the env file you remove the two arrow brackets from uri
